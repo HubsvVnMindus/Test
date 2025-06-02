@@ -15,7 +15,7 @@
     }
 
     body {
-      background: black;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://dl.dropboxusercontent.com/scl/fi/uzwrw0xr2uy0t0mlz3knt/b9e87b1cc3a8f29f181582c2e921862d.jpg') no-repeat center center/cover;
       color: white;
       overflow-x: hidden;
       display: flex;
@@ -23,18 +23,6 @@
       justify-content: center;
       min-height: 100vh;
       position: relative;
-    }
-
-    #bgVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      pointer-events: none;
-      filter: brightness(0.7) blur(2px);
     }
 
     .snow {
@@ -255,9 +243,6 @@
   </style>
 </head>
 <body>
-  <video autoplay muted loop playsinline id="bgVideo">
-    <source src="background.mp4" type="video/mp4">
-  </video>
   <div class="snow"></div>
   <div class="container">
     <div class="avatar-frame">
@@ -333,4 +318,4 @@
     };
   </script>
 </body>
-  </html>
+</html>
