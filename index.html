@@ -15,7 +15,7 @@
     }
 
     body {
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://dl.dropboxusercontent.com/scl/fi/uzwrw0xr2uy0t0mlz3knt/b9e87b1cc3a8f29f181582c2e921862d.jpg') no-repeat center center/cover;
+      background: black;
       color: white;
       overflow-x: hidden;
       display: flex;
@@ -33,14 +33,17 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
+      display: block;
     }
 
     .snowflake {
       position: absolute;
       top: -10px;
       color: white;
-      font-size: 10px;
+      font-size: 8px;
+      display: block;
       animation: fall linear infinite, sway ease-in-out infinite;
+      will-change: transform;
     }
 
     @keyframes fall {
@@ -52,7 +55,7 @@
 
     @keyframes sway {
       0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(20px); }
+      50% { transform: translateX(15px); }
     }
 
     .container {
@@ -177,6 +180,8 @@
       font-size: 14px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      max-width: 200px;
     }
 
     select:hover {
@@ -193,11 +198,18 @@
       font-weight: 500;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      max-width: 200px;
     }
 
     .music-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      max-width: 200px;
     }
 
     @media screen and (max-width: 480px) {
@@ -215,12 +227,19 @@
       .info {
         font-size: 13px;
       }
+      .social-icons a {
+        font-size: 22px;
+      }
       select, .music-btn {
         padding: 8px 15px;
         font-size: 12px;
+        max-width: 160px;
       }
-      .social-icons a {
-        font-size: 22px;
+      input[type="range"] {
+        max-width: 160px;
+      }
+      .snowflake {
+        font-size: 6px;
       }
     }
 
@@ -238,6 +257,17 @@
       }
       .info {
         font-size: 12px;
+      }
+      .social-icons a {
+        font-size: 20px;
+      }
+      select, .music-btn {
+        padding: 7px 12px;
+        font-size: 11px;
+        max-width: 140px;
+      }
+      input[type="range"] {
+        max-width: 140px;
       }
     }
   </style>
@@ -297,25 +327,31 @@
     }
 
     function createSnowflakes() {
+      console.log("Creating snowflakes...");
       const snow = document.querySelector('.snow');
-      const snowflakeCount = window.innerWidth < 480 ? 50 : 100;
+      const snowflakeCount = window.innerWidth < 480 ? 100 : 200;
+      const cols = Math.ceil(Math.sqrt(snowflakeCount));
+      const step = 100 / cols;
+      
       for (let i = 0; i < snowflakeCount; i++) {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         snowflake.innerHTML = '.';
-        snowflake.style.left = Math.random() * 100 + 'vw';
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        snowflake.style.left = (col * step + (Math.random() * step * 0.5)) + 'vw';
         snowflake.style.animationDuration = (2 + Math.random() * 3) + 's';
         snowflake.style.animationDelay = Math.random() * 2 + 's';
-        snowflake.style.opacity = Math.random();
-        snowflake.style.fontSize = (8 + Math.random() * 10) + 'px';
+        snowflake.style.opacity = 0.5 + Math.random() * 0.5;
         snowflake.style.animation = `fall ${2 + Math.random() * 3}s linear infinite, sway ${1 + Math.random() * 2}s ease-in-out infinite`;
         snow.appendChild(snowflake);
       }
+      console.log(`Created ${snowflakeCount} snowflakes`);
     }
 
-    window.onload = () => {
+    window.addEventListener('load', () => {
       createSnowflakes();
-    };
+    });
   </script>
 </body>
 </html>
